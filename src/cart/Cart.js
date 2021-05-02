@@ -19,9 +19,9 @@ export function Cart() {
 
   async function modalDelete() {
     try {
-      const res = await axios.delete(
-        `https://theccbackend.vikasvk1997.repl.co/cart/${modalState.productId}`
-      );
+      // const res = await axios.delete(
+      //   `https://theccbackend.vikasvk1997.repl.co/cart/${modalState.productId}`
+      // );
       cartDispatch({
         type: "REMOVE_CART",
         payload: { _id: modalState.productId }
