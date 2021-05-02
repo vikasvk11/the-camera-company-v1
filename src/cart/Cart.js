@@ -45,10 +45,10 @@ export function Cart() {
       };
     }
     try {
-      const res = await axios.post(
-        `https://theccbackend.vikasvk1997.repl.co/cart/${payload._id}`,
-        qty
-      );
+      // const res = await axios.post(
+      //   `https://theccbackend.vikasvk1997.repl.co/cart/${payload._id}`,
+      //   qty
+      // );
       cartDispatch({ type, payload });
     } catch (err) {
       console.log(err);
