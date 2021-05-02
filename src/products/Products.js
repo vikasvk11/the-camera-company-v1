@@ -7,6 +7,8 @@ import axios from "axios";
 
 import { useToast } from "../toast/ToastProvider";
 
+
+
 export function Products() {
   const [optionsState, optionsDispatch] = useReducer(optionsReducer, {
     filter: false,
