@@ -9,7 +9,7 @@ function cartReducer(state, action) {
     case "ADDTOCART":
       return {
         ...state,
-        cart: [...state.cart, { ...action.payload }]
+        cart: [{ ...action.payload }, ...state.cart ]
       };
 
     case "INCREMENT":
@@ -41,7 +41,7 @@ function cartReducer(state, action) {
     case "ADD_TO_WISHLIST":
       return {
         ...state,
-        wishlist: [...state.wishlist, action.payload]
+        wishlist: [action.payload, ...state.wishlist]
       };
 
     case "REMOVE_WISHLIST":
@@ -55,7 +55,7 @@ function cartReducer(state, action) {
     case "MOVE_TO_CART":
       return {
         ...state,
-        cart: [...state.cart, { ...action.payload, qty: 1 }],
+        cart: [{ ...action.payload, qty: 1 }, ...state.cart],
         wishlist: state.wishlist.filter(
           (product) => product._id !== action.payload._id
         )
@@ -67,7 +67,7 @@ function cartReducer(state, action) {
         cart: state.cart.filter(
           (product) => product._id !== action.payload._id
         ),
-        wishlist: [...state.wishlist, action.payload]
+        wishlist: [action.payload, ...state.wishlist]
       };
     default:
       return state;
