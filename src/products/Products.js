@@ -125,14 +125,14 @@ export function Products() {
 
   return (
     <>
-      <h1 className="mg-1" style={{ marginTop: "5rem" }}>
+      <h1 className="mg-1 product-header" style={{ marginTop: "5rem" }}>
         Products
       </h1>
       {load && (
         <img className="loader" src="images\Spinner-0.8s-211px.gif" alt="loader" />
       )}
 
-      <div className="App" style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="App" style={{ display: "flex", flexWrap: "wrap", minWidth: "100%", gap: "0", justifyContent: "space-around" }}>
         {filteredData.map(
           ({
             _id,
@@ -147,8 +147,8 @@ export function Products() {
             <div
               key={_id}
               style={{
-                margin: "1rem",
-                maxWidth: "40%",
+                margin: "0.4rem",
+                maxWidth: "46.5%",
                 padding: "0 0 1rem"
               }}
               className="product-card"
@@ -252,6 +252,7 @@ export function Products() {
         }`}
       >
         <h1 className="filter-options_header">Filter By</h1>
+        <span onClick={() => optionsDispatch({ type: "filter" })} className="material-icons options-close">close</span>
         <label className="filter-options_1">
           <input
             type="checkbox"
@@ -279,6 +280,7 @@ export function Products() {
         className={`filter-options ${optionsState.sort ? "filter-active" : ""}`}
       >
         <h1 className="filter-options_header">Sort By</h1>
+        <span onClick={() => optionsDispatch({ type: "sort" })} className="material-icons options-close">close</span>
         <label className="filter-options_1">
           <input
             type="radio"
