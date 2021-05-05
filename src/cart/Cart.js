@@ -21,7 +21,7 @@ export function Cart() {
     async function modalDelete() {
         try {
             // const res = await axios.delete(
-            // `https://theccbackend.vikasvk1997.repl.co/cart/${modalState.productId}` );
+            // `${process.env.REACT_APP_BE_URL}cart/${modalState.productId}` );
             cartDispatch({
                 type: "REMOVE_CART",
                 payload: {
@@ -50,7 +50,7 @@ export function Cart() {
         }
         try {
             // const res = await axios.post(
-            // `https://theccbackend.vikasvk1997.repl.co/cart/${payload._id}`,   qty );
+            // `${process.env.REACT_APP_BE_URL}cart/${payload._id}`,   qty );
             cartDispatch({type, payload});
         } catch (err) {
             console.log(err);
@@ -59,8 +59,8 @@ export function Cart() {
 
     async function addToWishlistHandler({type, payload}) {
         try {
-            const res = await axios.post("https://theccbackend.vikasvk1997.repl.co/wishlist", {id: payload._id});
-            const res1 = await axios.delete(`https://theccbackend.vikasvk1997.repl.co/cart/${payload._id}`);
+            const res = await axios.post(`${process.env.REACT_APP_BE_URL}wishlist`, {id: payload._id});
+            // const res1 = await axios.delete(`${process.env.REACT_APP_BE_URL}cart/${payload._id}`);
             cartDispatch({type, payload});
         } catch (err) {
             console.log(err);

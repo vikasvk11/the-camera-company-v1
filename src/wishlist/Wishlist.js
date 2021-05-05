@@ -20,14 +20,14 @@ export function Wishlist() {
   async function moveToCartClickHandler({ type, payload }) {
     try {
       const res = await axios.post(
-        "https://theccbackend.vikasvk1997.repl.co/cart",
+        `${process.env.REACT_APP_BE_URL}cart`,
         {
           productId: payload._id,
           quantity: 1
         }
       );
       const res1 = await axios.delete(
-        `https://theccbackend.vikasvk1997.repl.co/wishlist/${payload._id}`
+        `${process.env.REACT_APP_BE_URL}wishlist/${payload._id}`
       );
       cartDispatch({ type, payload });
     } catch (err) {

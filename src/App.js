@@ -74,7 +74,7 @@ export default function App() {
         />
         <h1>
           <NavLink to="/products" className="nav-header">
-            the Cart Co
+            the Camera Company
           </NavLink>
         </h1>
         <ul className="nav-list">

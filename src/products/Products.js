@@ -56,7 +56,7 @@ export function Products() {
     setLoader(true);
     try {
       const res = await axios.post(
-        "https://theccbackend.vikasvk1997.repl.co/cart",
+        `${process.env.REACT_APP_BE_URL}cart`,
         {
           productId: payload._id,
           quantity: 1
@@ -75,7 +75,7 @@ export function Products() {
     setLoader(true);
     try {
       const res = await axios.post(
-        "https://theccbackend.vikasvk1997.repl.co/wishlist",
+        `${process.env.REACT_APP_BE_URL}wishlist`,
         {
           id: payload._id
         }
@@ -93,7 +93,7 @@ export function Products() {
     setLoader(true);
     try {
       const res = await axios.delete(
-        `https://theccbackend.vikasvk1997.repl.co/wishlist/${payload._id}`
+        `${process.env.REACT_APP_BE_URL}wishlist/${payload._id}`
       );
 
       cartDispatch({ type, payload });
@@ -111,7 +111,7 @@ export function Products() {
       try {
         console.log(process.env.REACT_APP_BE_URL);
         const res = await axios.get(
-          `${process.env.REACT_APP_BE_URL}/products`
+          `${process.env.REACT_APP_BE_URL}products`
         );
 
         setApiData(res.data.products);
@@ -144,12 +144,6 @@ export function Products() {
       <h1 className="mg-1 product-header" style={{ marginTop: "5rem" }}>
         Products
       </h1>
-
-      
-
-      {/* {load && (
-        <img className="loader" src="images\Spinner-0.8s-211px.gif" alt="loader" />
-      )} */}
 
       <div className="App" style={{ display: "flex", flexWrap: "wrap", minWidth: "100%", gap: "0", justifyContent: "space-evenly", marginBottom: "2.5rem"}}>
         {filteredData.map(
