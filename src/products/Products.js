@@ -109,8 +109,9 @@ export function Products() {
     async function getData() {
       setLoader(true);
       try {
+        console.log(process.env.REACT_APP_BE_URL);
         const res = await axios.get(
-          "https://theccbackend.vikasvk1997.repl.co/products"
+          `${process.env.REACT_APP_BE_URL}/products`
         );
 
         setApiData(res.data.products);
@@ -137,7 +138,7 @@ export function Products() {
     <>
     {loader && (
         <div className="loaderr">
-        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
         </div>
       )}
       <h1 className="mg-1 product-header" style={{ marginTop: "5rem" }}>
