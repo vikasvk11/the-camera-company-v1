@@ -16,7 +16,8 @@ export function Products() {
     wishlist: false
   });
 
-  const [load, setLoad] = useState(false);
+
+  const [loader, setLoader] = useState(false);
   const [error, setError] = useState(false);
   const [apiData, setApiData] = useState([]);
 
@@ -52,6 +53,7 @@ export function Products() {
   }
 
   async function addToCartClickHandler({ type, payload }) {
+    setLoader(true);
     try {
       const res = await axios.post(
         "https://theccbackend.vikasvk1997.repl.co/cart",
@@ -64,10 +66,13 @@ export function Products() {
       toastDispatch({ type: "TO_CART" });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoader(false);
     }
   }
 
   async function addToWishlistHandler({ type, payload }) {
+    setLoader(true);
     try {
       const res = await axios.post(
         "https://theccbackend.vikasvk1997.repl.co/wishlist",
@@ -79,10 +84,13 @@ export function Products() {
       toastDispatch({ type: "TO_WISHLIST" });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoader(false);
     }
   }
 
   async function removeFromWishlistHandler({ type, payload }) {
+    setLoader(true);
     try {
       const res = await axios.delete(
         `https://theccbackend.vikasvk1997.repl.co/wishlist/${payload._id}`
@@ -92,12 +100,14 @@ export function Products() {
       toastDispatch({ type: "REMOVE_WISHLIST" });
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoader(false);
     }
   }
 
   useEffect(() => {
     async function getData() {
-      setLoad(true);
+      setLoader(true);
       try {
         const res = await axios.get(
           "https://theccbackend.vikasvk1997.repl.co/products"
@@ -108,7 +118,7 @@ export function Products() {
         setError(true);
         console.log(err);
       } finally {
-        setLoad(false);
+        setLoader(false);
       }
     }
     getData();
@@ -125,12 +135,20 @@ export function Products() {
 
   return (
     <>
+    {loader && (
+        <div className="loaderr">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+        </div>
+      )}
       <h1 className="mg-1 product-header" style={{ marginTop: "5rem" }}>
         Products
       </h1>
-      {load && (
+
+      
+
+      {/* {load && (
         <img className="loader" src="images\Spinner-0.8s-211px.gif" alt="loader" />
-      )}
+      )} */}
 
       <div className="App" style={{ display: "flex", flexWrap: "wrap", minWidth: "100%", gap: "0", justifyContent: "space-evenly", marginBottom: "2.5rem"}}>
         {filteredData.map(

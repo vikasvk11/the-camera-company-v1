@@ -40,7 +40,7 @@ export function Wishlist() {
       {cartState.wishlist.length === 0 ? (
         <div className="cart-container empty">
           <h1>What do you wish for? We have it all . . .</h1>
-          <img className="empty-cart-img" src="cart-icon-v3.png" alt="logo" />
+          <img className="empty-cart-img" src="images\cart-icon-v3.png" alt="logo" />
           <button className="btn-primary">
             <NavLink to="/products">Shop Now</NavLink>
           </button>
