@@ -132,7 +132,7 @@ export function Products() {
         <img className="loader" src="images\Spinner-0.8s-211px.gif" alt="loader" />
       )}
 
-      <div className="App" style={{ display: "flex", flexWrap: "wrap", minWidth: "100%", gap: "0", justifyContent: "space-around" }}>
+      <div className="App" style={{ display: "flex", flexWrap: "wrap", minWidth: "100%", gap: "0", justifyContent: "space-evenly", marginBottom: "2.5rem"}}>
         {filteredData.map(
           ({
             _id,
@@ -146,11 +146,6 @@ export function Products() {
           }) => (
             <div
               key={_id}
-              style={{
-                margin: "0.4rem",
-                maxWidth: "46.5%",
-                padding: "0 0 1rem"
-              }}
               className="product-card"
             >
               <img src={image} alt={productName} />
@@ -208,7 +203,7 @@ export function Products() {
               )}
               <div>
                 {cartState.cart.find((item) => _id === item._id) ? (
-                  <button className="btn-primary btn-goto mg-1" style={{fontSize: "0.7rem"}}>
+                  <button className="btn-primary btn-goto" style={{fontSize: "0.7rem", margin: "0.2rem"}}>
                     <NavLink to="/cart">
                       GO TO CART
                       <span className="material-icons af" style={{fontSize: "0.5rem"}}>
@@ -218,8 +213,8 @@ export function Products() {
                   </button>
                 ) : (
                   <button
-                    className="btn-primary mg-1"
-                    style={{fontSize: "0.7rem"}}
+                    className="btn-primary"
+                    style={{fontSize: "0.7rem", margin: "0.2rem"}}
                     disabled={inStock ? false : true}
                     onClick={() => {
                       addToCartClickHandler({

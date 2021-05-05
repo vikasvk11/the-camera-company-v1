@@ -17,11 +17,17 @@ a {
 
 .product-card {
   border: 1px solid rgb(228, 228, 228);
+  margin: 0.2rem;
+  width: 46.5%;
+  padding: 0 0 1rem;
+  height: 25rem;
 }
 
 .product-card > img {
   width: 100%;
   cursor: pointer;
+  height: 60%;
+  object-fit: contain;
 }
 
 .btn-primary:disabled {
@@ -38,7 +44,7 @@ a {
 }
 
 .card-title {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
 .product-price {
