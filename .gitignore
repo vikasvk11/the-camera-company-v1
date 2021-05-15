@@ -22,9 +22,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# environment files
-.env
-
 # netlify
 /.netlify
 
