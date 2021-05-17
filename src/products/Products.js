@@ -4,6 +4,7 @@ import { useCart } from "../cart/CartContext";
 import { useProduct } from "./ProductContext";
 import { NavLink, Route, Routes } from "react-router-dom";
 import axios from "axios";
+import { Loader } from "../Components/Loader";
 
 import { useToast } from "../toast/ToastProvider";
 
@@ -137,15 +138,13 @@ export function Products() {
   return (
     <>
     {loader && (
-        <div className="loaderr">
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
-        </div>
+        <Loader />
       )}
-      <h1 className="mg-1 product-header" style={{ marginTop: "5rem" }}>
+      <h1 className="mg-1 product-header mg-t-5">
         Products
       </h1>
 
-      <div className="App" style={{ display: "flex", flexWrap: "wrap", minWidth: "100%", gap: "0", justifyContent: "space-evenly", marginBottom: "2.5rem"}}>
+      <div className="App products-container">
         {filteredData.map(
           ({
             _id,
@@ -165,7 +164,7 @@ export function Products() {
               <p className="card-title"> {name} </p>
               <p className="product-price">&#8377; {price.toLocaleString()}</p>
               {!inStock && (
-                <div style={{ color: "grey", fontSize: "0.8rem" }}>
+                <div className="stock-font out-of-stock-font">
                   Out of Stock
                 </div>
               )}
@@ -210,24 +209,23 @@ export function Products() {
               )}
 
               {fastDelivery ? (
-                <div style={{ fontSize: "0.8rem" }}> Fast Delivery </div>
+                <div className="stock-font"> Fast Delivery </div>
               ) : (
-                <div style={{ fontSize: "0.8rem" }}> 3 days minimum </div>
+                <div className="stock-font"> 3 days minimum </div>
               )}
               <div>
                 {cartState.cart.find((item) => _id === item._id) ? (
-                  <button className="btn-primary btn-goto" style={{fontSize: "0.7rem", margin: "0.2rem"}}>
+                  <button className="btn-primary btn-goto btn-cart-font">
                     <NavLink to="/cart">
                       GO TO CART
-                      <span className="material-icons af" style={{fontSize: "0.5rem"}}>
+                      <span className="material-icons af">
                         arrow_forward_ios
                       </span>
                     </NavLink>
                   </button>
                 ) : (
                   <button
-                    className="btn-primary"
-                    style={{fontSize: "0.7rem", margin: "0.2rem"}}
+                    className="btn-primary btn-cart-font"
                     disabled={inStock ? false : true}
                     onClick={() => {
                       addToCartClickHandler({

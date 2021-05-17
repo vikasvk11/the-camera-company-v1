@@ -69,7 +69,7 @@ export default function App() {
       <nav className="nav-bar">
         <img
           src="images\cart-icon-v2.png"
-          style={{ objectFit: "contain", width: "30px" }}
+          className="nav-bar-logo"
           alt="logo"
         />
         <h1>

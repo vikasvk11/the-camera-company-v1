@@ -66,19 +66,13 @@ export function Wishlist() {
                 <p className="card-title"> {name} </p>
                 <p className="product-price">&#8377; {price}</p>
                 {inStock && (
-                  <div style={{ fontSize: "0.8rem", paddingLeft: "0.5rem" }}>
+                  <div className="stock-font stock-font_padding">
                     {" "}
                     In Stock{" "}
                   </div>
                 )}
                 {!inStock && (
-                  <div
-                    style={{
-                      color: "grey",
-                      fontSize: "0.8rem",
-                      paddingLeft: "0.5rem"
-                    }}
-                  >
+                  <div className="stock-font out-of-stock-font stock-font_padding">
                     {" "}
                     Out of Stock{" "}
                   </div>
@@ -99,12 +93,12 @@ export function Wishlist() {
                   delete
                 </span>
                 {fastDelivery ? (
-                  <div style={{ fontSize: "0.8rem", paddingLeft: "0.5rem" }}>
+                  <div className="stock-font stock-font_padding">
                     {" "}
                     Fast Delivery{" "}
                   </div>
                 ) : (
-                  <div style={{ fontSize: "0.8rem", paddingLeft: "0.5rem" }}>
+                  <div className="stock-font stock-font_padding">
                     {" "}
                     3 days minimum{" "}
                   </div>
@@ -113,7 +107,7 @@ export function Wishlist() {
                   <button className="btn-primary mg-1 mg-a-1">
                     <NavLink to="/cart">
                       GO TO CART
-                      <span className="material-icons af" style={{fontSize: "0.6rem"}}> 
+                      <span className="material-icons af"> 
                         arrow_forward_ios
                       </span>
                     </NavLink>
