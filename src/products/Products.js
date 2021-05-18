@@ -1,16 +1,14 @@
 import React, { useEffect, useReducer, useState } from "react";
 import "../styles.css";
-import { useCart } from "../cart/CartContext";
 import { useProduct } from "./ProductContext";
-import { NavLink, Route, Routes } from "react-router-dom";
 import axios from "axios";
 import { Loader } from "../Components/Loader";
-
-import { useToast } from "../toast/ToastProvider";
+import { ProductCard } from "../Components/ProductCard";
 
 
 
 export function Products() {
+
   const [optionsState, optionsDispatch] = useReducer(optionsReducer, {
     filter: false,
     sort: false,
@@ -53,64 +51,10 @@ export function Products() {
       .filter((item) => (productState.showAll ? true : item.inStock));
   }
 
-  async function addToCartClickHandler({ type, payload }) {
-    setLoader(true);
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BE_URL}cart`,
-        {
-          productId: payload._id,
-          quantity: 1
-        }
-      );
-      cartDispatch({ type, payload });
-      toastDispatch({ type: "TO_CART" });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoader(false);
-    }
-  }
-
-  async function addToWishlistHandler({ type, payload }) {
-    setLoader(true);
-    try {
-      const res = await axios.post(
-        `${process.env.REACT_APP_BE_URL}wishlist`,
-        {
-          id: payload._id
-        }
-      );
-      cartDispatch({ type, payload });
-      toastDispatch({ type: "TO_WISHLIST" });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoader(false);
-    }
-  }
-
-  async function removeFromWishlistHandler({ type, payload }) {
-    setLoader(true);
-    try {
-      const res = await axios.delete(
-        `${process.env.REACT_APP_BE_URL}wishlist/${payload._id}`
-      );
-
-      cartDispatch({ type, payload });
-      toastDispatch({ type: "REMOVE_WISHLIST" });
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoader(false);
-    }
-  }
-
   useEffect(() => {
     async function getData() {
       setLoader(true);
       try {
-        console.log(process.env.REACT_APP_BE_URL);
         const res = await axios.get(
           `${process.env.REACT_APP_BE_URL}products`
         );
@@ -126,11 +70,7 @@ export function Products() {
     getData();
   }, []);
 
-  const { cartState, cartDispatch } = useCart();
-
   const { productState, productDispatch } = useProduct();
-
-  const { toastDispatch } = useToast();
 
   const sortedData = sortData(apiData, productState);
   const filteredData = filterData(sortedData, productState);
@@ -140,9 +80,7 @@ export function Products() {
     {loader && (
         <Loader />
       )}
-      <h1 className="mg-1 product-header mg-t-5">
-        Products
-      </h1>
+      <h1 className="mg-1 product-header mg-t-5"> Products </h1>
 
       <div className="App products-container">
         {filteredData.map(
@@ -156,99 +94,19 @@ export function Products() {
             fastDelivery,
             ratings
           }) => (
-            <div
-              key={_id}
-              className="product-card"
-            >
-              <img src={image} alt={productName} />
-              <p className="card-title"> {name} </p>
-              <p className="product-price">&#8377; {price.toLocaleString()}</p>
-              {!inStock && (
-                <div className="stock-font out-of-stock-font">
-                  Out of Stock
-                </div>
-              )}
-              <p className="product-rating">
-                {ratings}
-                <span className="material-icons">grade</span>
-              </p>
-              {cartState.wishlist.find((item) => _id === item._id) ? (
-                <span
-                  onClick={() => {
-                    removeFromWishlistHandler({
-                      type: "REMOVE_WISHLIST",
-                      payload: { _id }
-                    });
-                  }}
-                  className="material-icons wishlist-badge"
-                  style={{ color: "#DA4167" }}
-                >
-                  favorite
-                </span>
-              ) : (
-                <span
-                  onClick={() => {
-                    addToWishlistHandler({
-                      type: "ADD_TO_WISHLIST",
-                      payload: {
-                        _id,
-                        name,
-                        image,
-                        price,
-                        productName,
-                        inStock,
-                        fastDelivery,
-                        ratings
-                      }
-                    });
-                  }}
-                  className="material-icons wishlist-badge"
-                >
-                  favorite
-                </span>
-              )}
-
-              {fastDelivery ? (
-                <div className="stock-font"> Fast Delivery </div>
-              ) : (
-                <div className="stock-font"> 3 days minimum </div>
-              )}
-              <div>
-                {cartState.cart.find((item) => _id === item._id) ? (
-                  <button className="btn-primary btn-goto btn-cart-font">
-                    <NavLink to="/cart">
-                      GO TO CART
-                      <span className="material-icons af">
-                        arrow_forward_ios
-                      </span>
-                    </NavLink>
-                  </button>
-                ) : (
-                  <button
-                    className="btn-primary btn-cart-font"
-                    disabled={inStock ? false : true}
-                    onClick={() => {
-                      addToCartClickHandler({
-                        type: "ADDTOCART",
-                        payload: {
-                          _id,
-                          name,
-                          image,
-                          price,
-                          productName,
-                          inStock,
-                          fastDelivery,
-                          ratings,
-                          qty: 1
-                        }
-                      });
-                    }}
-                  >
-                    ADD TO CART
-                  </button>
-                )}
-              </div>
-            </div>
+            <>
+              <ProductCard 
+              key={_id} 
+              _id={_id} 
+              name={name} 
+              image={image} 
+              price={price} 
+              productName={productName} 
+              inStock={inStock} 
+              fastDelivery={fastDelivery}
+              ratings={ratings}
+              />
+            </>
           )
         )}
       </div>
